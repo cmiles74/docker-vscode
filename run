@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# allow all docker hosts to our X server
+xhost + 172.17.0
+
+# start docker and emacs
+docker run -it \
+      -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+      -v ${HOME}/.config/Code:/developer/.config/Code \
+      -v ${HOME}/.vscode:/developer/.vscode \
+      -v ${HOME}/.ssh:/developer/.ssh \
+      -v ${HOME}/.gitconfig:/developer/.gitconfig \
+      -v ${PWD}/project:/project \
+      -e DISPLAY=unix${DISPLAY} \
+      -p 5000:5000 \
+      --device /dev/snd \
+      --name docker-vscode \
+      --entrypoint "/bin/bash" \
+      cmiles74/vscode
+
+docker exec cmiles74-vscode /developer/bin/start-vscode
+docker exec cmiles74-vscode /developer/bin/start-emacs

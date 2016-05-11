@@ -1,0 +1,3 @@
+#!/bin/bash
+export SHELL=/bin/bash
+/usr/local/bin/emacs "$@"

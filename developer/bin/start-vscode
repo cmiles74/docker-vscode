@@ -1,0 +1,4 @@
+#!/bin/bash
+export SHELL=/bin/bash
+/usr/bin/code "$@"
+
