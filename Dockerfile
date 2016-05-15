@@ -21,7 +21,7 @@ run add-apt-repository ppa:git-core/ppa
 run apt-get update
 
 # vscode dependencies
-run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx mono-complete curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen rxvt-unicode-256color nodejs libnotify-bin aspell
+run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx mono-complete curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen rxvt-unicode-256color nodejs libnotify-bin aspell aspell-en htop
 
 # emacs dependencies
 run apt-get -y build-dep emacs24-lucid
@@ -86,11 +86,12 @@ copy /developer /developer
 workdir /developer
 
 # install omnisharp roslyn
-# run git clone https://github.com/OmniSharp/omnisharp-roslyn.git
-# workdir /developer/omnisharp-roslyn
-# run git fetch
-# run git checkout dev
-# run /developer/omnisharp-roslyn/build.sh -target=Quick
+run git clone https://github.com/OmniSharp/omnisharp-roslyn.git
+workdir /developer/omnisharp-roslyn
+run git fetch
+run git checkout vscode
+run /developer/omnisharp-roslyn/build.sh
+workdir /developer
 
 # fix developer permissions
 run chmod +x /developer/bin/*
@@ -98,7 +99,7 @@ run chown -R developer:developer /developer
 user developer
 
 # install dnvm and dnx
-run wget https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh
+run wget --no-cache https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh
 run chmod +x /developer/dnvminstall.sh
 run /developer/dnvminstall.sh
 run rm /developer/dnvminstall.sh
@@ -112,6 +113,8 @@ workdir /developer/project
 
 # setup our ports
 expose 5000
+expose 3000
+expose 3001
 
 # install spacemacs
 user developer

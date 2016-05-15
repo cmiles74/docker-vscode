@@ -14,7 +14,8 @@ This image contains...
 * The latest Visual Studio Code release
 * The latest Emacs release, with Spacemacs + Javascript
 * The older .Net DNVM tools
-* The newer .Net CLI tools
+* A New-ish .Net CLI tools
+* OmniSharp Roslyn
 * The latest Mono 
 * The latest NPM, ready to install packages without root
 * The latest Git
@@ -91,7 +92,7 @@ and then choose "OmniSharp: Restart OmniSharp".
 
 ### Additional Packages for Emacs
 
-If you're using Emacs, you'll want to install tern, js-beautify and js-hint with
+If you're using Emacs, you'll want to install tern, js-beautify and jshint with
 NPM. These modules are used to support the Emacs Javascript mode. 
 
 If you're working with React, you'll want to install eslint, babel-eslint and
@@ -99,3 +100,19 @@ eslint-plugin-react with NPM. These are used to support the React mode. Check
 out the
 [Spacemacs React documentation page](https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Bframeworks/react)
 for more information.
+
+About DotNet ClI
+----------------
+
+This image comes with a version of the DotNet CLI that can successfully compile
+OmniSharp Roslyn. I couldn't get it working with a .Net Core MVC application,
+even the stock examples on the
+[sample website](https://github.com/aspnet/cli-samples) had an issue where they
+couldn't find the entrypoint. Your mileage may vary. :-)
+
+To get OmniSharp Roslyn working in Visual Studio Code, add the following to your
+user or workspace settings file.
+
+    "csharp.omnisharp": "/developer/omnisharp-roslyn/artifacts/publish/<runtime id>/<target framework>/"
+    
+
