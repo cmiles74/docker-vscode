@@ -1,6 +1,10 @@
 .Net Development Environment
 ============================
 
+You can pull this image from Docker Hub.
+
+    docker pull cmiles74/docker-vscode
+
 After much grinding and gnashing of teeth, I finally gave up on getting the .Net
 packages up-and-running on my Arch Linux machine. It just wasn't working and it
 was far too much of an uphill battle. This Docker image contains all of the same
