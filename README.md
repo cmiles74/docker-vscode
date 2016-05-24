@@ -60,6 +60,8 @@ one that will do what you want.
       -v ${HOME}/.config/Code:/developer/.config/Code \
       -v ${HOME}/.ssh:/developer/.ssh \
       -v ${HOME}/.gitconfig:/developer/.gitconfig \
+      -v ${SSH_AUTH_SOCK}:/ssh_auth_sock \
+      -e SSH_AUTH_SOCK=/ssh_auth_sock \
       -e DISPLAY=unix${DISPLAY} \
       -p 5000:5000 \
       --device /dev/snd \

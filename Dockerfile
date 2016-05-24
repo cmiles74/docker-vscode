@@ -89,7 +89,7 @@ workdir /developer
 run git clone https://github.com/OmniSharp/omnisharp-roslyn.git
 workdir /developer/omnisharp-roslyn
 run git fetch
-run git checkout vscode
+run git checkout dev
 run /developer/omnisharp-roslyn/build.sh
 workdir /developer
 
