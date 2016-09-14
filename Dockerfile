@@ -57,7 +57,7 @@ run ln -s /usr/bin/urxvt /usr/bin/xterm
 # install dotnet core
 run curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=827530
 run mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
-rnu ln -s /opt/dotnet/dotnet /usr/local/bin
+run ln -s /opt/dotnet/dotnet /usr/local/bin
 
 # install vscode
 run wget -O vscode-amd64.deb  https://go.microsoft.com/fwlink/?LinkID=760868
