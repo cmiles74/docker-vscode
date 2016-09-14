@@ -1,8 +1,8 @@
 from phusion/baseimage
 
-# add dotnet core feed
-run sh -c 'echo "deb [arch=amd64] http://apt-mo.trafficmanager.net/repos/dotnet/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
-run apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
+# get add-apt-repository
+run apt-get update
+run apt-get -y --no-install-recommends install software-properties-common
 
 # add mono feed
 run apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
@@ -21,7 +21,7 @@ run add-apt-repository ppa:git-core/ppa
 run apt-get update
 
 # vscode dependencies
-run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx mono-complete curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen rxvt-unicode-256color nodejs libnotify-bin aspell aspell-en htop
+run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx mono-complete curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen rxvt-unicode-256color nodejs libnotify-bin aspell aspell-en htop libunwind8-dev
 
 # emacs dependencies
 run apt-get -y build-dep emacs24-lucid
@@ -55,11 +55,12 @@ run mv /usr/bin/xterm /usr/bin/xterm.bak
 run ln -s /usr/bin/urxvt /usr/bin/xterm
 
 # install dotnet core
-run apt-get -y install dotnet
-#run apt-get -y install dotnet-dev-1.0.0-rc2-002416
+run curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=827530
+run mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+rnu ln -s /opt/dotnet/dotnet /usr/local/bin
 
 # install vscode
-run wget -O vscode-amd64.deb https://go.microsoft.com/fwlink/?LinkID=760868
+run wget -O vscode-amd64.deb  https://go.microsoft.com/fwlink/?LinkID=760868
 run dpkg -i vscode-amd64.deb
 run rm vscode-amd64.deb
 
@@ -99,13 +100,13 @@ run chown -R developer:developer /developer
 user developer
 
 # install dnvm and dnx
-run wget --no-cache https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh
-run chmod +x /developer/dnvminstall.sh
-run /developer/dnvminstall.sh
-run rm /developer/dnvminstall.sh
-user root
-run cat /developer/.bash_profile >> /etc/bash.bashrc
-user developer
+# run wget --no-cache https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh
+# run chmod +x /developer/dnvminstall.sh
+# run /developer/dnvminstall.sh
+# run rm /developer/dnvminstall.sh
+# user root
+# run cat /developer/.bash_profile >> /etc/bash.bashrc
+# user developer
 
 # copy in test project
 copy project /developer/project
