@@ -8,23 +8,20 @@ You can pull this image from Docker Hub.
 After much grinding and gnashing of teeth, I finally gave up on getting the .Net
 packages up-and-running on my Arch Linux machine. It just wasn't working and it
 was far too much of an uphill battle. This Docker image contains all of the same
-tools, but wrapped up in an Ubuntu Server installation. Even so, the image is
+tools, but wrapped up in an Debian Jesse installation. Even so, the image is
 still way too big; if you have any tips that might help me slim it down, please
 let me know!
 
 This image contains...
 
-* Ubuntu Server 14.04 (Trusty)
+* Linux, Debian Jesse
 * The latest Visual Studio Code release
 * The latest Emacs release, with Spacemacs + Javascript
-* The older .Net DNVM tools
 * A New-ish .Net CLI tools
-* OmniSharp Roslyn
-* The latest Mono 
-* The latest NPM, ready to install packages without root
-* The latest Git
+* Mono 
+* The latest 4.x NPM, ready to install packages without root
+* Git
 * The Hack font and Flat Plat GTK 2+3 theme
-* URXVT
 
 Port 5000 is exposed, that is the default port used when running .Net
 applications. The following mount points are also exposed.
@@ -38,6 +35,9 @@ The first two can be mapped into your home directory (to save settings across
 all projects) or somewhere else (maybe your project folder). The last should be
 mapped to your .Net project's source code directory. You can map in your .ssh
 keys and configuration as well.
+
+To be clear, this image is based on the .Net Core Docker image releasd by
+Microsoft.
 
 Running the Image
 -----------------
@@ -67,7 +67,7 @@ one that will do what you want.
       --device /dev/snd \
       --name myproject-vscode \      
       --entrypoint "/bin/bash" \
-      cmiles74/vscode
+      cmiles74/docker-vscode
 
     docker exec discowiki-vscode /developer/bin/start-vscode
     docker exec discowiki-vscode /developer/bin/start-emacs
@@ -82,19 +82,17 @@ into the image.
 
 ### Get a Terminal Session
 
-From inside Visual Studio Code, press Control-Shift-C to bring up a console
-window. ;-)
+Visual Studio Code now has an integrated terminal, you can toggle it's
+visibility from under the "View" menu. By default, terminal sessions do not read
+".bash_profile" and so they won't be able to see binaries installed by NPM. To
+remedy this, open your "User Settings" (from under "Preferences") and add one of
+the following:
 
-### Install a DNVM Runtime
+    // Linux
+    "terminal.integrated.shellArgs.linux": ["-l"]
 
-DNVM installs itself as a set of Bash functions; it comes with the image.
-However there is no DNX selected. To setup the Mono DNX, run the following:
-
-    dnvm upgrade -r mono 
-    
-That's it! You will need to restart OmniSharp inside Visual Studio Code to pick
-up the new DNX. Type Control-Shift-P to open the Command Palette and type "Omni"
-and then choose "OmniSharp: Restart OmniSharp". 
+    // OS X
+    "terminal.integrated.shellArgs.osx": ["-l"]
 
 ### Additional Packages for Emacs
 
@@ -106,19 +104,3 @@ eslint-plugin-react with NPM. These are used to support the React mode. Check
 out the
 [Spacemacs React documentation page](https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Bframeworks/react)
 for more information.
-
-About DotNet ClI
-----------------
-
-This image comes with a version of the DotNet CLI that can successfully compile
-OmniSharp Roslyn. I couldn't get it working with a .Net Core MVC application,
-even the stock examples on the
-[sample website](https://github.com/aspnet/cli-samples) had an issue where they
-couldn't find the entrypoint. Your mileage may vary. :-)
-
-To get OmniSharp Roslyn working in Visual Studio Code, add the following to your
-user or workspace settings file.
-
-    "csharp.omnisharp": "/developer/omnisharp-roslyn/artifacts/publish/<runtime id>/<target framework>/"
-    
-
