@@ -13,6 +13,9 @@ run apt-get update
 # vscode dependencies
 run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen nodejs libnotify-bin aspell aspell-en htop git emacs mono-complete
 
+# update npm
+run npm install npm -g
+
 # install vscode
 run wget -O vscode-amd64.deb  https://go.microsoft.com/fwlink/?LinkID=760868
 run dpkg -i vscode-amd64.deb
@@ -60,7 +63,7 @@ workdir /developer
 run git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 # set path
-run export PATH=$PATH:/developer/.npm/bin
+run export PATH=$PATH:/developer/.npm/bin 
 
 # mount points
 volume ["/developer/.config/Code"]
