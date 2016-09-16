@@ -22,6 +22,7 @@ This image contains...
 * The latest 4.x NPM, ready to install packages without root
 * Git
 * The Hack font and Flat Plat GTK 2+3 theme
+* Firefox
 
 Port 5000 is exposed, that is the default port used when running .Net
 applications. The following mount points are also exposed.
@@ -104,3 +105,24 @@ eslint-plugin-react with NPM. These are used to support the React mode. Check
 out the
 [Spacemacs React documentation page](https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Bframeworks/react)
 for more information.
+
+### Firefox
+
+Firefox is included with this image to support the opening of web links from
+inside Visual Studio Code. For instance, if you choose "Release Notes" from
+under the "Help" menu, Code will attempt to open the URL with "xdg-open". To
+make this all work, xdg-open is acutally a soft link to the Firefox binary (I
+didn't want to install and XDG compliant desktop environment).
+
+Presently the multi-process (electrolysis) version of Firefox is super crashy
+under Docker. If you're using Firefox often, open the "Preferences" and uncheck
+the "Enable multi-process Firefox Developer Edition" option.
+
+If you already have Firefox running, the Firefox binary will detect this and it
+will open the URL in your running (outside of Docker) Firefox instance. This is
+probably the best way to go.
+
+Anyway, with all of this setup and working, you can launch a "Web" debug session
+and actually view the site in Firefox. If you'd like to use another browser,
+feel free to customize the Docker script.
+

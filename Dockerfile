@@ -23,7 +23,7 @@ run rm vscode-amd64.deb
 
 # install flat plat theme
 run wget 'https://github.com/nana-4/Flat-Plat/releases/download/3.20.20160404/Flat-Plat-3.20.20160404.tar.gz'
-run tar -zxvf Flat-Plat*
+run tar -xf Flat-Plat*
 run mv Flat-Plat /usr/share/themes
 run rm Flat-Plat*gz
 run mv /usr/share/themes/Default /usr/share/themes/Default.bak
@@ -43,10 +43,21 @@ run useradd -u 1000 -r -g developer -d /developer -c "Software Developer" develo
 copy /developer /developer
 workdir /developer
 
+# hack for firefox
+run ln -s /developer/.local/share/firefox/firefox /bin/xdg-open
+
 # fix developer permissions
 run chmod +x /developer/bin/*
 run chown -R developer:developer /developer
 user developer
+
+# install firefox
+run mkdir Applications
+run wget "https://download.mozilla.org/?product=firefox-aurora-latest-ssl&os=linux64&lang=en-US" -O firefox.tar.bz2
+run tar -xf firefox.tar.bz2
+run mv firefox .local/share
+run ln -s /developer/.local/share/firefox/firefox /developer/bin/x-www-browser
+run ln -s /developer/.local/share/firefox/firefox /developer/bin/gnome-www-browser
 
 # copy in test project
 copy project /developer/project
