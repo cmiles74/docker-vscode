@@ -66,7 +66,7 @@ one that will do what you want.
       -e DISPLAY=unix${DISPLAY} \
       -p 5000:5000 \
       --device /dev/snd \
-      --name myproject-vscode \      
+      --name myproject-vscode \
       --entrypoint "/bin/bash" \
       cmiles74/docker-vscode
 
