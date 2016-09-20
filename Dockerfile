@@ -2,7 +2,7 @@ from microsoft/dotnet:latest
 
 # get add-apt-repository
 run apt-get update
-run apt-get -y --no-install-recommends install software-properties-common
+run apt-get -y --no-install-recommends install software-properties-common curl
 
 # add nodejs ppa
 run curl -sL https://deb.nodesource.com/setup_4.x | bash -
