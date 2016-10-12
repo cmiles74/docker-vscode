@@ -25,17 +25,20 @@ This image contains...
 * Firefox
 
 Port 5000 is exposed, that is the default port used when running .Net
-applications. The following mount points are also exposed.
+applications. The following mount points may also exposed, simply edit the
+included "run" script.
 
 * /developer/.config/Code
 * /developer/.vscode
 * /developer/project
-* /developer/.ssh
       
-The first two can be mapped into your home directory (to save settings across
+The first three can be mapped into your home directory (to save settings across
 all projects) or somewhere else (maybe your project folder). The last should be
 mapped to your .Net project's source code directory. You can map in your .ssh
-keys and configuration as well.
+keys and git configuration as well.
+
+* /developer/.ssh
+* /developer/.gitconfig
 
 To be clear, this image is based on the .Net Core Docker image releasd by
 Microsoft.
@@ -53,37 +56,34 @@ one that will do what you want.
     xhost +local:docker
 
     # start vscode
-    docker run -it \
+    docker run -d \
       -d \
       -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
       -v ${PWD}:/developer/project \
-      -v ${HOME}/.vscode:/developer/.vscode \
-      -v ${HOME}/.config/Code:/developer/.config/Code \
-      -v ${HOME}/.ssh:/developer/.ssh \
-      -v ${HOME}/.gitconfig:/developer/.gitconfig \
-      -v ${SSH_AUTH_SOCK}:/ssh_auth_sock \
-      -e SSH_AUTH_SOCK=/ssh_auth_sock \
       -e DISPLAY=unix${DISPLAY} \
       -p 5000:5000 \
       --device /dev/snd \
       --name myproject-vscode \
-      --entrypoint "/bin/bash" \
+      --entrypoint "xterm" \
       cmiles74/docker-vscode
 
-    docker exec discowiki-vscode /developer/bin/start-vscode
-    docker exec discowiki-vscode /developer/bin/start-emacs
+    docker exec myproject-vscode /developer/bin/start-vscode
+    docker exec myproject-vscode /developer/bin/start-emacs
 
 You can place this script in your project directory and run it right from there.
 It will map in the project files, your Visual Studio Code settings from your
 home directory, allow X11 access to your host environment and map in your
 display and sound. Lastly, it will launch Visual Studio Code and Emacs.
 
+To shutdown the container, simply close or exit the terminal window.
+
 Once it's launched, there are a couple setup tasks that I haven't yet automated
 into the image. 
 
 ### Get a Terminal Session
 
-Visual Studio Code now has an integrated terminal, you can toggle it's
+The script above will start the container and open up an terminal, Code and
+Emacs. Visual Studio Code also has an integrated terminal, you can toggle it's
 visibility from under the "View" menu. By default, terminal sessions do not read
 ".bash_profile" and so they won't be able to see binaries installed by NPM. To
 remedy this, open your "User Settings" (from under "Preferences") and add one of

@@ -4,21 +4,34 @@
 xhost + 172.17.0
 
 # start docker and emacs
-docker run -it \
+docker run -d \
       -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-      -v ${HOME}/.config/Code:/developer/.config/Code \
-      -v ${HOME}/.vscode:/developer/.vscode \
-      -v ${HOME}/.ssh:/developer/.ssh \
-      -v ${HOME}/.gitconfig:/developer/.gitconfig \
       -v ${PWD}/project:/project \
-      -v ${SSH_AUTH_SOCK}:/ssh_auth_sock \
-      -e SSH_AUTH_SOCK=/ssh_auth_sock \
       -e DISPLAY=unix${DISPLAY} \
       -p 5000:5000 \
       --device /dev/snd \
       --name docker-vscode \
-      --entrypoint "/bin/bash" \
+      --entrypoint "xterm" \
       cmiles74/docker-vscode
 
-docker exec cmiles74/docker-vscode /developer/bin/start-vscode
-docker exec cmiles74/docker-vscode /developer/bin/start-emacs
+# alternatively, you can map your settings into the container
+# docker run -it \
+#        -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+#        -v ${HOME}/.config/Code:/developer/.config/Code \
+#        -v ${HOME}/.vscode:/developer/.vscode \
+#        -v ${HOME}/.ssh:/developer/.ssh \
+#        -v ${HOME}/.gitconfig:/developer/.gitconfig \
+#        -v ${PWD}/project:/project \
+#        -v ${SSH_AUTH_SOCK}:/ssh_auth_sock \
+#        -e SSH_AUTH_SOCK=/ssh_auth_sock \
+#        -e DISPLAY=unix${DISPLAY} \
+#        -p 5000:5000 \
+#        --device /dev/snd \
+#        --name docker-vscode \
+#        --entrypoint "xterm" \
+#        cmiles74/docker-vscode
+
+docker exec docker-vscode /developer/bin/start-vscode
+docker exec docker-vscode /developer/bin/start-emacs
+
+
