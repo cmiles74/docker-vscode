@@ -18,7 +18,7 @@ docker run -it \
       --device /dev/snd \
       --name docker-vscode \
       --entrypoint "/bin/bash" \
-      cmiles74/vscode
+      cmiles74/docker-vscode
 
-docker exec cmiles74-vscode /developer/bin/start-vscode
-docker exec cmiles74-vscode /developer/bin/start-emacs
+docker exec cmiles74/docker-vscode /developer/bin/start-vscode
+docker exec cmiles74/docker-vscode /developer/bin/start-emacs
