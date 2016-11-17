@@ -64,7 +64,6 @@ one that will do what you want.
       -p 5000:5000 \
       --device /dev/snd \
       --name myproject-vscode \
-      --entrypoint "xterm" \
       cmiles74/docker-vscode
 
     docker exec myproject-vscode /developer/bin/start-vscode

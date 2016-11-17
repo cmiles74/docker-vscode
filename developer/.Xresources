@@ -1,0 +1,21 @@
+Urxvt*imLocale: en_US.UTF-8
+URxvt*termName: rxvt-unicode
+URxvt.perl-ext-common: default,matcher
+URxvt.iso14755: False
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
+
+URxvt.scrollBar: false
+URxvt.font: xft:Hack:size=9
+URxvt.boldFont: xft:Hack:style:Bold:size=9,xft:Unifont:size=9
+URxvt.ItalicFont: xft:Hack:style:Italic:size=9,xft:Unifont:size=9
+URxvt.boldItalicFont: xft:Hack:style:Bold Italic:size=9,xft:Unifont:size=9 
+URxvt.letterSpace: -1
+
+URxvt.depth: 32
+
+URxvt.matcher.button: 1
+URxvt.url-select.underline: true
+URxvt.geometry: 100x24

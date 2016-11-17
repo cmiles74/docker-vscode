@@ -11,7 +11,7 @@ run curl -sL https://deb.nodesource.com/setup_4.x | bash -
 run apt-get update
 
 # vscode dependencies
-run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen nodejs libnotify-bin aspell aspell-en htop git emacs mono-complete gvfs-bin libxss1 rxvt-unicode x11-xserver-utils
+run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen nodejs libnotify-bin aspell aspell-en htop git emacs mono-complete gvfs-bin libxss1 rxvt-unicode-256color x11-xserver-utils
 
 # update npm
 run npm install npm -g
@@ -39,7 +39,7 @@ run fc-cache -f -v
 # create our developer user
 workdir /root
 run groupadd -r developer -g 1000
-run useradd -u 1000 -r -g developer -d /developer -c "Software Developer" developer
+run useradd -u 1000 -r -g developer -d /developer -s /bin/bash -c "Software Developer" developer
 copy /developer /developer
 workdir /developer
 
@@ -73,8 +73,11 @@ user developer
 workdir /developer
 run git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
-# set path
-run export PATH=$PATH:/developer/.npm/bin 
+# set environment variables
+env PATH /developer/.npm/bin:$PATH
+env NODE_PATH /developer/.npm/lib/node_modules:$NODE_PATH
+env BROWSER /developer/.local/share/firefox/firefox-bin
+env SHELL /bin/bash
 
 # mount points
 volume ["/developer/.config/Code"]
@@ -83,5 +86,5 @@ volume ["/developer/.ssh"]
 volume ["/developer/project"]
 
 # start vscode
-entrypoint ["/usr/bin/xterm"]
+entrypoint ["/developer/bin/start-shell"]
 

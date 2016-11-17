@@ -1,4 +1,3 @@
 #!/bin/bash
 xrdb -merge /developer/.Xresources
-/usr/bin/code "$@"
-
+/usr/bin/urxvt -title "Shell"
