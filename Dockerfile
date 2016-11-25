@@ -43,7 +43,7 @@ run useradd -u 1000 -r -g developer -d /developer -s /bin/bash -c "Software Deve
 copy /developer /developer
 workdir /developer
 
-# hack for firefox
+# default browser firefox
 run ln -s /developer/.local/share/firefox/firefox /bin/xdg-open
 
 # fix developer permissions
@@ -53,9 +53,13 @@ user developer
 
 # install firefox
 run mkdir Applications
-run wget "https://download.mozilla.org/?product=firefox-aurora-latest-ssl&os=linux64&lang=en-US" -O firefox.tar.bz2
+#run wget "https://download.mozilla.org/?product=firefox-aurora-latest-ssl&os=linux64&lang=en-US" -O firefox.tar.bz2
+run wget "https://ftp.mozilla.org/pub/firefox/nightly/2016/06/2016-06-30-00-40-07-mozilla-aurora/firefox-49.0a2.en-US.linux-x86_64.tar.bz2" -O firefox.tar.bz2
 run tar -xf firefox.tar.bz2
 run mv firefox .local/share
+run rm firefox.tar.bz2
+
+# links for firefox
 run ln -s /developer/.local/share/firefox/firefox /developer/bin/x-www-browser
 run ln -s /developer/.local/share/firefox/firefox /developer/bin/gnome-www-browser
 

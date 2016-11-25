@@ -125,3 +125,5 @@ Anyway, with all of this setup and working, you can launch a "Web" debug session
 and actually view the site in Firefox. If you'd like to use another browser,
 feel free to customize the Docker script.
 
+Since release 52, Firefox isn't running from inside the container. :-( For now,
+Firefox is on version 49.
