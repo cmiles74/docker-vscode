@@ -1,8 +1,17 @@
-from microsoft/dotnet:latest
+#from microsoft/dotnet:latest
+from cmiles74/dotnet:latest
+
+# fix locale
+run echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+run locale-gen
 
 # get add-apt-repository
 run apt-get update
-run apt-get -y --no-install-recommends install software-properties-common curl
+run apt-get -y --no-install-recommends install software-properties-common curl apt-transport-https
+
+# add SQL Server tools PPA
+run curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+run curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
 
 # add nodejs ppa
 run curl -sL https://deb.nodesource.com/setup_4.x | bash -
@@ -11,7 +20,14 @@ run curl -sL https://deb.nodesource.com/setup_4.x | bash -
 run apt-get update
 
 # vscode dependencies
-run apt-get -y --no-install-recommends install libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen nodejs libnotify-bin aspell aspell-en htop git emacs mono-complete gvfs-bin libxss1 rxvt-unicode-256color x11-xserver-utils
+run apt-get -y --no-install-recommends install libc6-dev libgtk2.0-0 libgtk-3-0 libpango-1.0-0 libcairo2 libfontconfig1 libgconf2-4 libnss3 libasound2 libxtst6 unzip libglib2.0-bin libcanberra-gtk-module libgl1-mesa-glx curl build-essential gettext libstdc++6 software-properties-common wget git xterm automake libtool autogen nodejs libnotify-bin aspell aspell-en htop git emacs mono-complete gvfs-bin libxss1 rxvt-unicode-256color x11-xserver-utils sudo vim
+
+# MS SQL Server tools
+#
+# This doesn't work because it makes you agree to a license agreement. I've
+# tried "yes" but to no avail.
+#
+# run apt-get install mssql-tools
 
 # update npm
 run npm install npm -g
@@ -45,6 +61,9 @@ workdir /developer
 
 # default browser firefox
 run ln -s /developer/.local/share/firefox/firefox /bin/xdg-open
+
+# enable sudo for developer
+run echo "developer ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/developer
 
 # fix developer permissions
 run chmod +x /developer/bin/*

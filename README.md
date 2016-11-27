@@ -93,6 +93,16 @@ the following:
 
     // OS X
     "terminal.integrated.shellArgs.osx": ["-l"]
+    
+### Additional Packages for Microsoft SQL Server
+
+If you're going to be working with SQL Server, you will need to install the
+command line tools.
+
+    sudo apt-get install mssql-tools
+    
+So far I haven't had any luck actually logging into a SQL Server instance with
+these tools, if you get it working let me know!
 
 ### Additional Packages for Emacs
 
