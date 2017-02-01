@@ -1,17 +1,13 @@
-#from microsoft/dotnet:latest
-from cmiles74/dotnet:latest
-
-# fix locale
-run echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
-run locale-gen
+from microsoft/dotnet:latest
+#from cmiles74/dotnet:latest
 
 # get add-apt-repository
 run apt-get update
 run apt-get -y --no-install-recommends install software-properties-common curl apt-transport-https
 
 # add SQL Server tools PPA
-run curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-run curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
+# run curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# run curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
 
 # add nodejs ppa
 run curl -sL https://deb.nodesource.com/setup_4.x | bash -
