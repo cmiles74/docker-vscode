@@ -10,7 +10,7 @@ run apt-get -y --no-install-recommends install software-properties-common curl a
 # run curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
 
 # add nodejs ppa
-run curl -sL https://deb.nodesource.com/setup_6.x | bash -
+run curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 # update apt cache
 run apt-get update
