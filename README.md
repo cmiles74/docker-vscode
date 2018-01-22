@@ -19,7 +19,7 @@ This image contains...
 * The latest Emacs release, with Spacemacs + Javascript
 * A New-ish .Net CLI tools
 * Mono 
-* The latest 4.x NPM, ready to install packages without root
+* The latest NPM, ready to install packages without root
 * Git
 * The Hack font and Flat Plat GTK 2+3 theme
 * Firefox
