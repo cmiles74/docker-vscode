@@ -10,7 +10,9 @@ packages up-and-running on my Arch Linux machine. It just wasn't working and it
 was far too much of an uphill battle. This Docker image contains all of the same
 tools, but wrapped up in an Debian Jesse installation. Even so, the image is
 still way too big; if you have any tips that might help me slim it down, please
-let me know!
+let me know! And, if you'd like to encourage my meager work on this fairly dull project...
+
+<a href="https://www.buymeacoffee.com/cmiles74" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 This image contains...
 
