@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# allow all docker hosts to our X server
-xhost + 172.17.0
-
 # start docker and emacs
 docker run -d \
       -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
       -v ${PWD}/project:/project \
+      -v $XAUTHORITY:/developer/.Xauthority \
       -e DISPLAY=unix${DISPLAY} \
+      -e XAUTHORITY=/developer/.Xauthority \
       -p 5000:5000 \
       --device /dev/snd \
       --name docker-vscode \
@@ -17,6 +16,7 @@ docker run -d \
 # alternatively, you can map your settings into the container
 # docker run -it \
 #        -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+#        -v $XAUTHORITY:/developer/.Xauthority \
 #        -v ${HOME}/.config/Code:/developer/.config/Code \
 #        -v ${HOME}/.vscode:/developer/.vscode \
 #        -v ${HOME}/.ssh:/developer/.ssh \
@@ -25,6 +25,7 @@ docker run -d \
 #        -v ${SSH_AUTH_SOCK}:/ssh_auth_sock \
 #        -e SSH_AUTH_SOCK=/ssh_auth_sock \
 #        -e DISPLAY=unix${DISPLAY} \
+#        -e XAUTHORITY=/developer/.Xauthority \
 #        -p 5000:5000 \
 #        --device /dev/snd \
 #        --name docker-vscode \
