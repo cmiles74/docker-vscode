@@ -54,9 +54,6 @@ one that will do what you want.
 
     #!/bin/bash
 
-    # allow X11 access
-    xhost +local:docker
-
     # start vscode
     docker run -d \
       -d \
